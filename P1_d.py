@@ -1,6 +1,7 @@
 # chebyshev method python
 
 import numpy as np
+from scipy import special as sci
 
 
 def f_x(xi: float):
@@ -21,8 +22,8 @@ def chebyshev_method_i(f_x, f_dev_x, xi: float):
 
 def iter_chebyshev  (n:int, x0 , f, ff):
     for i in range(0,n):
-        #print('xi: ', 'n: ')
-       # print(x0)
+        print('xi: ', 'n: ')
+        print(x0)
         xi = chebyshev_method_i(f, ff, x0)
         er = xi - x0
         tolerance = 10 ** -10
@@ -38,8 +39,9 @@ if __name__ == '__main__':
     a, b = 0.567, 0.852
     n = 11
     h = (b - a) / n
-    vector_i = np.linspace(a, b, n)
-    vector_aux = [0.56, 0.6, 0.63, 0.66, 0.69, 0.72, 0.75, 0.78, 0.8, 0.829, 0.852]
-    for i in vector_aux:
-        #print('iteracion para ' ,i)
-        iter_chebyshev(110,i,f_x,f_dev_x)
+    vector_i = np.linspace(1, 2, 11)
+    vector_w_ai = list(map(sci.lambertw, vector_i))
+    vector_w_ai = [np.round(np.absolute(elem), 5) for elem in vector_w_ai]
+    for i in vector_i:
+        print('iteracion para ' ,i)
+        iter_chebyshev(11,i,f_x,f_dev_x)
